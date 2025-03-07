@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --light-color: #f8f9fa;
+      --dark-color: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @keyframes bgColorAnimation {
+      0% { background-color:rgb(0, 247, 255); }
+      50% { background-color: rgb(182, 238, 29); }
+      100% { background-color: rgb(247, 86, 86); }
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      animation: bgColorAnimation 10s ease-in-out infinite;
+      color: var(--dark-color);
+    }
+
+  nav {
+    background-color: var(--primary-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  nav .logo {
+    font-size: 1.8rem;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  nav .logo i {
+    color: var(--secondary-color);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  nav ul li {
+    display: inline;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+  }
+
+  nav ul li a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+  }
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    nav ul {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background-color: var(--primary-color);
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    nav ul.show {
+      display: flex;
+    }
+
+    nav ul li {
+      margin: 10px 0;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+  }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .search-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    #cityInput {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: var(--secondary-color);
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: var(--accent-color);
+      margin: 10px 0;
+      text-align: center;
+      display: none;
+    }
+
+    .loading {
+      text-align: center;
+      margin: 20px 0;
+      display: none;
+      font-style: italic;
+    }
+
+    .weather-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s forwards;
+    }
+
+    .weather-card.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .weather-card h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+    }
+
+    .weather-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .weather-item {
+      text-align: center;
+      padding: 10px;
+      background: var(--light-color);
+      border-radius: 4px;
+      transition: transform 0.3s;
+    }
+
+    .weather-item:hover {
+      transform: scale(1.05);
+    }
+
+    .weather-item .label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .weather-item .value {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 40px;
+      }
+      .weather-card {
+        padding: 30px;
+      }
+    }
+
+  footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  footer .social-icons {
+    display: flex;
+    gap: 15px;
+  }
+
+  footer .social-icons a {
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+  }
+
+  footer .social-icons a:hover {
+    color: var(--secondary-color);
+    transform: scale(1.2);
+  }
+
+  </style>
+</head>
+<body>
+  <!--Navbar-->
+  <nav>
+    <div class="logo"><i class="fas fa-cloud-sun"></i> WeatherApp</div>
+    <ul id="menu">
+      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-cloud"></i> Weather App</h1>
+      <p>Get the latest weather updates for your city</p>
+    </header>
+
+    <div class="search-container">
+      <input type="text" id="cityInput" placeholder="Enter city name..." />
+      <button id="getWeatherBtn"><i class="fas fa-search"></i> Get Weather</button>
+    </div>
+
+    <div class="error" id="errorMessage"></div>
+    <div class="loading" id="loading"><i class="fas fa-spinner fa-spin"></i> Loading weather data...</div>
+
+    <div class="weather-card" id="weatherCard">
+      <h2 class="city-name" id="cityName"></h2>
+      <div class="weather-info">
+        <div class="weather-item">
+          <div class="label"><i class="fas fa-thermometer-half"></i> Temperature</div>
+          <div class="value" id="temperature"></div>
+        </div>
+        <div class="weather-item">
+          <div class="label"><i class="fas fa-tint"></i> Humidity</div>
+          <div class="value" id="humidity"></div>
+        </div>
+        <div class="weather-item">
+          <div class="label"><i class="fas fa-cloud"></i> Conditions</div>
+          <div class="value" id="conditions"></div>
+        </div>
+        <div class="weather-item">
+          <div class="label"><i class="fas fa-wind"></i> Wind Speed</div>
+          <div class="value" id="windSpeed"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+<footer>
+  <p>&copy; <span id="year"></span> Weather App. All Rights Reserved.</p>
+  <div class="social-icons">
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="https://instagram.com/m.zohaibalii"><i class="fab fa-instagram"></i></a>
+  </div>
+</footer>
+
+  <!-- Weather App Script -->
+  <script>
+
+    const GEOCODING_API = 'https://geocoding-api.open-meteo.com/v1/search';
+    const WEATHER_API = 'https://api.open-meteo.com/v1/forecast';
+
+    const cityInput = document.getElementById('cityInput');
+    const getWeatherBtn = document.getElementById('getWeatherBtn');
+    const weatherCard = document.getElementById('weatherCard');
+    const loading = document.getElementById('loading');
+    const errorMessage = document.getElementById('errorMessage');
+
+    const weatherCodeMap = {
+      0: 'Clear sky',
+      1: 'Mainly clear',
+      2: 'Partly cloudy',
+      3: 'Overcast',
+      45: 'Fog',
+      48: 'Depositing rime fog',
+      51: 'Light drizzle',
+      53: 'Moderate drizzle',
+      55: 'Dense drizzle',
+      56: 'Light freezing drizzle',
+      57: 'Dense freezing drizzle',
+      61: 'Slight rain',
+      63: 'Moderate rain',
+      65: 'Heavy rain',
+      66: 'Light freezing rain',
+      67: 'Heavy freezing rain',
+      71: 'Slight snow fall',
+      73: 'Moderate snow fall',
+      75: 'Heavy snow fall',
+      77: 'Snow grains',
+      80: 'Slight rain showers',
+      81: 'Moderate rain showers',
+      82: 'Violent rain showers',
+      85: 'Slight snow showers',
+      86: 'Heavy snow showers',
+      95: 'Thunderstorm',
+      96: 'Thunderstorm with hail',
+      99: 'Thunderstorm with heavy hail'
+    };
+
+    async function getCoordinates(city) {
+      const response = await fetch(`${GEOCODING_API}?name=${encodeURIComponent(city)}&count=1`);
+      const data = await response.json();
+      if (!data.results || data.results.length === 0) {
+        throw new Error('City not found');
+      }
+      return {
+        latitude: data.results[0].latitude,
+        longitude: data.results[0].longitude,
+        name: data.results[0].name
+      };
+    }
+
+    async function getWeather(lat, lon) {
+      const params = new URLSearchParams({
+        latitude: lat,
+        longitude: lon,
+        current_weather: true,
+        hourly: 'temperature_2m,relativehumidity_2m,windspeed_10m',
+        timezone: 'auto'
+      });
+      const response = await fetch(`${WEATHER_API}?${params}`);
+      return await response.json();
+    }
+
+    async function handleWeatherFetch() {
+      const city = cityInput.value.trim();
+      if (!city) {
+        showError('Please enter a city name');
+        return;
+      }
+      clearUI();
+      showLoading();
+      try {
+        const coords = await getCoordinates(city);
+        const weatherData = await getWeather(coords.latitude, coords.longitude);
+        updateUI(coords.name, weatherData);
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        hideLoading();
+      }
+    }
+
+    function updateUI(cityName, data) {
+      document.getElementById('cityName').textContent = cityName;
+      document.getElementById('temperature').textContent = `${data.current_weather.temperature}°C`;
+      document.getElementById('humidity').textContent = `${data.hourly.relativehumidity_2m[0]}%`;
+      document.getElementById('windSpeed').textContent = `${data.current_weather.windspeed} m/s`;
+      document.getElementById('conditions').textContent = weatherCodeMap[data.current_weather.weathercode] || 'N/A';
+
+      weatherCard.classList.add('visible');
+    }
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+    }
+
+    function clearUI() {
+      errorMessage.style.display = 'none';
+      weatherCard.classList.remove('visible');
+    }
+
+    function showLoading() {
+      loading.style.display = 'block';
+    }
+
+    function hideLoading() {
+      loading.style.display = 'none';
+    }
+
+ function toggleMenu() {
+    document.getElementById("menu").classList.toggle("show");
+  }
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+    getWeatherBtn.addEventListener('click', handleWeatherFetch);
+    cityInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleWeatherFetch();
+    });
+  </script>
+</body>
+</html>
