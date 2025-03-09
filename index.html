@@ -8,34 +8,43 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <style>
-
-    :root {
-      --primary-color: #2c3e50;
-      --secondary-color: #3498db;
-      --accent-color: #e74c3c;
-      --light-color: #f8f9fa;
-      --dark-color: #333;
+    /* Root Variables */
+       :root {
+        --primary-color: #1E3A8A;
+        --secondary-color: #4A90E2;
+        --light-color: #f3f4f6;
+        --dark-color: #333;
     }
-
+    /* Global Reset */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+
+     /* Animated Background */
     @keyframes bgColorAnimation {
-      0% { background-color:rgb(0, 247, 255); }
-      50% { background-color: rgb(182, 238, 29); }
-      100% { background-color: rgb(247, 86, 86); }
+        0% { background: #e0e7ff; }
+        50% { background: #f3f4f6; }
+        100% { background: #e0e7ff; }
     }
-
+ /* General Page Styling */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      animation: bgColorAnimation 10s ease-in-out infinite;
-      color: var(--dark-color);
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #f3f4f6, #e0e7ff);
+        color: #333;
+        margin: 0;
+        padding: 80px 20px 20px; /* Space for fixed navbar */
+        
+        
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
     }
 
+
+    /* Navbar Styling */
   nav {
     background-color: var(--primary-color);
     padding: 15px 20px;
@@ -81,7 +90,8 @@
     color: var(--secondary-color);
     text-decoration: underline;
   }
-
+  
+/* Mobile Menu Button */
 .menu-toggle {
     display: none;
     font-size: 1.5rem;
@@ -114,7 +124,7 @@
       display: block;
     }
   }
-
+    /* Container */
     .container {
       max-width: 800px;
       margin: 20px auto;
@@ -132,6 +142,7 @@
       margin-bottom: 0.5rem;
     }
 
+    /* Search Section */
     .search-container {
       display: flex;
       gap: 10px;
@@ -162,6 +173,7 @@
       transform: scale(1.05);
     }
 
+    /* Error and Loading */
     .error {
       color: var(--accent-color);
       margin: 10px 0;
@@ -176,6 +188,7 @@
       font-style: italic;
     }
 
+    /* Weather Card */
     .weather-card {
       background: white;
       padding: 20px;
@@ -238,6 +251,7 @@
       color: var(--secondary-color);
     }
 
+    /* Responsive Adjustments */
     @media (min-width: 768px) {
       body {
         padding: 40px;
@@ -247,47 +261,345 @@
       }
     }
 
+     /* Footer Styling */
   footer {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     text-align: center;
-    padding: 20px;
-    margin-top: 50%;
+    padding: 25px 20px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-  }
-
-  footer .social-icons {
-    display: flex;
     gap: 15px;
+    border-top: 4px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
   }
 
-  footer .social-icons a {
+  /* Footer Text */
+  footer p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  /* Social Icons */
+  .social-icons {
+    display: flex;
+    gap: 20px;
+  }
+
+  .social-icons a {
     color: white;
-    font-size: 1.5rem;
-    transition: transform 0.3s;
+    font-size: 1.8rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+    text-decoration: none;
   }
 
-  footer .social-icons a:hover {
-    color: var(--secondary-color);
-    transform: scale(1.2);
+  .social-icons a:hover {
+    color: #ffcc00;
+    transform: translateY(-3px) scale(1.15);
   }
 
+  /* Footer Links */
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover {
+    color: #ffcc00;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    footer {
+      padding: 20px 15px;
+    }
+
+    .social-icons {
+      gap: 15px;
+    }
+
+    .social-icons a {
+      font-size: 1.5rem;
+    }
+
+    .footer-links {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+    }
+  }
+
+
+    /* Modern Navbar Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(45deg, #4A90E2, #1E3A8A);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+            font-size: 24px;
+        }
+
+        #menu {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu li {
+            margin: 0 15px;
+        }
+
+        #menu li a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 500;
+            transition: 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+        }
+
+        #menu li a i {
+            margin-right: 8px;
+        }
+
+        #menu li a:hover {
+            color: #FFD700; /* Gold effect */
+        }
+
+        .menu-toggle {
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background: #1E3A8A;
+                width: 200px;
+                box-shadow: -2px 4px 8px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+            }
+
+            #menu.show {
+                display: flex;
+            }
+
+            #menu li {
+                margin: 10px 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+     /* Container Styling */
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: white;
+}
+
+/* Header Styling */
+header h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+header p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  background: white;
+  color: #333;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-container button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.search-container button:hover {
+  background: #ffdb4d;
+  transform: scale(1.05);
+}
+
+/* Loading & Error Messages */
+.loading, .error {
+  font-size: 16px;
+  margin-top: 15px;
+  display: none;
+}
+
+.loading {
+  color: #ffcc00;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+/* Weather Card */
+.weather-card {
+  display: none;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* City Name */
+.city-name {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Weather Info */
+.weather-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  text-align: left;
+}
+
+.weather-item {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.weather-item .label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.weather-item .value {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-container input,
+  .search-container button {
+    width: 100%;
+  }
+
+  .weather-info {
+    grid-template-columns: 1fr;
+  }
+}
+    
   </style>
 </head>
 <body>
-  <!--Navbar-->
-  <nav>
-    <div class="logo"><i class="fas fa-cloud-sun"></i> WeatherApp</div>
-    <ul id="menu">
-      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
-      <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
-    </ul>
-    <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-  </nav>
+ <nav>
+        <div class="logo"><i class="fas fa-cloud-sun"></i> WeatherApp</div>
+        <ul id="menu">
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('show');
+        }
+    </script>
+
+  
 
   <!-- Main Container -->
   <div class="container">
@@ -339,16 +651,18 @@
 
   <!-- Weather App Script -->
   <script>
-
+    // API Configuration
     const GEOCODING_API = 'https://geocoding-api.open-meteo.com/v1/search';
     const WEATHER_API = 'https://api.open-meteo.com/v1/forecast';
 
+    // DOM Elements
     const cityInput = document.getElementById('cityInput');
     const getWeatherBtn = document.getElementById('getWeatherBtn');
     const weatherCard = document.getElementById('weatherCard');
     const loading = document.getElementById('loading');
     const errorMessage = document.getElementById('errorMessage');
 
+    // Weather Code Mapping
     const weatherCodeMap = {
       0: 'Clear sky',
       1: 'Mainly clear',
@@ -430,7 +744,8 @@
       document.getElementById('humidity').textContent = `${data.hourly.relativehumidity_2m[0]}%`;
       document.getElementById('windSpeed').textContent = `${data.current_weather.windspeed} m/s`;
       document.getElementById('conditions').textContent = weatherCodeMap[data.current_weather.weathercode] || 'N/A';
-
+      
+      // Add a class to trigger the fade-in animation
       weatherCard.classList.add('visible');
     }
 
@@ -451,13 +766,15 @@
     function hideLoading() {
       loading.style.display = 'none';
     }
-
+ // Toggle mobile menu
  function toggleMenu() {
     document.getElementById("menu").classList.toggle("show");
   }
 
+  // Auto-update copyright year
   document.getElementById("year").textContent = new Date().getFullYear();
 
+    // Event Listeners
     getWeatherBtn.addEventListener('click', handleWeatherFetch);
     cityInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') handleWeatherFetch();
